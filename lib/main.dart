@@ -37,18 +37,17 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: const Text('User'),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const UserPage(),
-                    ),
-                  );
-                },
-                icon: const Icon(Icons.add))
-          ],
+          title: const Text('All Users'),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const UserPage(),
+              ),
+            );
+          },
+          child: const Icon(Icons.add),
         ),
       );
 }
