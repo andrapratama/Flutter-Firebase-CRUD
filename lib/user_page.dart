@@ -59,6 +59,12 @@ class _UserPageState extends State<UserPage> {
             const SizedBox(height: 32),
             ElevatedButton(
                 onPressed: () {
+                  final user = User(
+                    name: controllerName.text,
+                    age: int.parse(controllerAge.text),
+                    birthday: DateTime.parse(controllerDate.text),
+                  );
+                  createUser(user);
                   Navigator.pop(context);
                 },
                 child: const Text('Create'))
@@ -66,20 +72,11 @@ class _UserPageState extends State<UserPage> {
         ),
       );
 
-
-  Future createUser({required String name}) async {
-    /// Reference to document
+  Future createUser(User user) async {
     final docUser = FirebaseFirestore.instance.collection('users').doc();
+    user.id = docUser.id;
 
-    final user = User(
-      id : docUser.id,
-      name: name,
-      age: 21,
-      birthday: DateTime(2001, 7, 28),
-    );
     final json = user.toJson();
-
-    /// Create document and write data to Firebase
     await docUser.set(json);
   }
 }
