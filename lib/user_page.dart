@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:date_field/date_field.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:firebase_crud/model/user.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class UserPage extends StatefulWidget {
   const UserPage({Key? key}) : super(key: key);
@@ -15,6 +16,8 @@ class _UserPageState extends State<UserPage> {
   final controllerAge = TextEditingController();
   final controllerDate = TextEditingController();
 
+  final format = DateFormat("yyyy-MM-dd");
+
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -25,37 +28,36 @@ class _UserPageState extends State<UserPage> {
           children: [
             TextField(
               controller: controllerName,
-              // decoration: decoration('Name'),
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Name',
+              ),
             ),
             const SizedBox(height: 24),
             TextField(
               controller: controllerAge,
-              // decoration: decoration('Age'),
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Age',
+              ),
               keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 24),
-            TextField(
+            DateTimeField(
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Birthday',
+              ),
+              format: format,
               controller: controllerDate,
+              onShowPicker: (context, currentValue) {
+                return showDatePicker(
+                    context: context,
+                    firstDate: DateTime(1900),
+                    initialDate: currentValue ?? DateTime.now(),
+                    lastDate: DateTime(2100));
+              },
             ),
-            // DateTimeField(
-            //     decoration: const InputDecoration(
-            //         hintText: 'Please select your birthday date and time'),
-            //     selectedDate: DateTime.now(),
-            //     onDateSelected: (DateTime value) {
-            //       setState(() {
-            //         // selectedDate = value;
-            //       });
-            //     }),
-            // DateTimeField(
-            //     controller: controllerDate,
-            //   decoration decoration('Birthday'),
-            //   format:DateFormat('yyyy-MM-dd'),
-            //   onShowPicker: (context, currentValue)=>
-            //     context: context,
-            //     firstDate: DateTime(1900),
-            //     lastDate: DateTime(2100),
-            //     initialDate : currentDate?? DateTime.now()
-            // ),
             const SizedBox(height: 32),
             ElevatedButton(
                 onPressed: () {
