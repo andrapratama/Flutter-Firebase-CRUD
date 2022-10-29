@@ -45,7 +45,7 @@ class _MainPageState extends State<MainPage> {
           stream: readUsers(),
           builder: (context, snapsot) {
             if (snapsot.hasError) {
-              return Text('Something wnt wrong! ${snapsot.error}');
+              return Text('Something went wrong! ${snapsot.error}');
             } else if (snapsot.hasData) {
               final users = snapsot.data!;
               return ListView(
