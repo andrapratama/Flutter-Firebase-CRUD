@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_crud/model/user.dart';
 import 'package:firebase_crud/user_page.dart';
+import 'package:firebase_crud/user_page_edit.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -74,6 +75,23 @@ class _MainPageState extends State<MainPage> {
         ),
         title: Text(user.name),
         subtitle: Text(user.birthday.toIso8601String()),
+        trailing: FittedBox(
+          fit: BoxFit.fill,
+          child: Row(
+            children: [
+              IconButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => UserPageEdit(id: user.id, name: user.name, age: user.age, birthday: user.birthday.toIso8601String()),
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.edit)),
+              IconButton(onPressed: () {}, icon: const Icon(Icons.delete)),
+            ],
+          ),
+        ),
       );
 
   Stream<List<User>> readUsers() => FirebaseFirestore.instance
