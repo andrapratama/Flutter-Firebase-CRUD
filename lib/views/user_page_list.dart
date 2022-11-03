@@ -84,7 +84,11 @@ class _UserPageListState extends State<UserPageList> {
                       actions: [
                         TextButton(
                             onPressed: () {
-
+                              final docUser = FirebaseFirestore.instance
+                                  .collection('users')
+                                  .doc(user.id);
+                              docUser.delete();
+                              Navigator.pop(context);
                             },
                             child: const Text("Yes")),
                         TextButton(
