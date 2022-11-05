@@ -1,6 +1,8 @@
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:firebase_crud/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserPageEdit extends StatefulWidget {
   final String id;
@@ -66,10 +68,26 @@ class _UserPageEditState extends State<UserPageEdit> {
             const SizedBox(height: 32),
             ElevatedButton(
                 onPressed: () {
-
+                  final user = User(
+                    name: controllerName.text,
+                    age: int.parse(controllerAge.text),
+                    birthday: DateTime.parse(controllerDate.text),
+                  );
+                  updateUser(user);
+                  Navigator.pop(context);
                 },
                 child: const Text('Update'))
           ],
         ),
       );
+
+  Future updateUser(User user) async {
+    final docUser = FirebaseFirestore.instance.collection('users').doc(user.id);
+
+    docUser.update({
+      'name':user.name,
+      'age':user.age,
+      'birthday':user.birthday
+    });
+  }
 }
