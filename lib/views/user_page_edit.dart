@@ -82,7 +82,7 @@ class _UserPageEditState extends State<UserPageEdit> {
       );
 
   Future updateUser(User user) async {
-    final docUser = FirebaseFirestore.instance.collection('users').doc(user.id);
+    final docUser = FirebaseFirestore.instance.collection('users').doc(widget.id);
 
     docUser.update({
       'name':user.name,
