@@ -11,7 +11,11 @@ class UserPageEdit extends StatefulWidget {
   final String birthday;
 
   const UserPageEdit(
-      {Key? key, required this.id, required this.name, required this.age, required this.birthday})
+      {Key? key,
+      required this.id,
+      required this.name,
+      required this.age,
+      required this.birthday})
       : super(key: key);
 
   @override
@@ -56,12 +60,12 @@ class _UserPageEditState extends State<UserPageEdit> {
                 hintText: 'Birthday',
               ),
               format: format,
-              controller: controllerDate,
+              controller: controllerDate..text = widget.birthday,
               onShowPicker: (context, currentValue) {
                 return showDatePicker(
                     context: context,
                     firstDate: DateTime(1900),
-                    initialDate: currentValue ?? DateTime.now(),
+                    initialDate: currentValue ?? DateTime.parse(widget.birthday),
                     lastDate: DateTime(2100));
               },
             ),
@@ -82,12 +86,10 @@ class _UserPageEditState extends State<UserPageEdit> {
       );
 
   Future updateUser(User user) async {
-    final docUser = FirebaseFirestore.instance.collection('users').doc(widget.id);
+    final docUser =
+        FirebaseFirestore.instance.collection('users').doc(widget.id);
 
-    docUser.update({
-      'name':user.name,
-      'age':user.age,
-      'birthday':user.birthday
-    });
+    docUser.update(
+        {'name': user.name, 'age': user.age, 'birthday': user.birthday});
   }
 }
