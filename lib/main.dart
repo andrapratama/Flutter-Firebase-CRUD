@@ -1,8 +1,4 @@
 // ignore_for_file: depend_on_referenced_packages
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_crud/models/user.dart';
-import 'package:firebase_crud/views/user_page_add.dart';
-import 'package:firebase_crud/views/user_page_edit.dart';
 import 'package:firebase_crud/views/user_page_list.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -22,7 +18,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   Widget build(BuildContext context) {
     const String title = 'Firebase Setup';
@@ -33,5 +28,4 @@ class _MyAppState extends State<MyApp> {
       home: const UserPageList(),
     );
   }
-
 }
